@@ -6,66 +6,56 @@
       // ———————————————————————————————————————————— GUARD ————————————————————————————————————————————— //
       // ———————————————————————————————————————————————————————————————————————————————————————————————— //
       
-      if(!isset($block)) return;
+      if(!isset($layoutSections) || $layoutSections->isEmpty()) return;
 
       // ———————————————————————————————————————————— ASSETS ———————————————————————————————————————————— //
       // ———————————————————————————————————————————————————————————————————————————————————————————————— //
 
-      // ...
+      // ... 
       
       // ——————————————————————————————————————————— CONTENT ———————————————————————————————————————————— //
       // ———————————————————————————————————————————————————————————————————————————————————————————————— //
       
-      $ID             = $block->id();
-      $buttonText     = $block->buttonText();
-      $layoutSections = $block->layout()->toLayouts();
+      // ...
 
       ///////////////////////// Availability checks //////////////////////////
       ////////////////////////////////////////////////////////////////////////
 
-      $has_layoutSections = $block->layout()->isNotEmpty();
+      // ...
 
-      // ——————————————————————————————————————————— CONFIG. ———————————————————————————————————————————— //
+      // ———————————————————————————————————————— CHECKS/CONFIG. ———————————————————————————————————————— //
       // ———————————————————————————————————————————————————————————————————————————————————————————————— //
-
-      $version = $block->version();
-
-      // ————————————————————————— Config. dependant content —————————————————————————— //
-      // —————————————————————————————————————————————————————————————————————————————— //
 
       // ...
 
       ////////////////////// Parts/Sub-component args. ///////////////////////
       ////////////////////////////////////////////////////////////////////////
 
-      $args_button  = ['text' => $buttonText];
-      $args_content = ['layoutSections' => $layoutSections];
+      // ...
       
       // ———————————————————————————————————————————————————————————————————————————————————————————————— //
       // ———————————————————————————————————————————————————————————————————————————————————————————————— //
       ?>
 
-<div id            ="<?= $ID ?>"
+<div data-ref      ="content"
+     data-is-hidden="true"
+     class         ="data-[is-hidden=true]:hidden">
 
-     g-component   ="BaseCollapsible"
-     g-version     ="<?= $version ?>"
+  <?php // Layout sections //
+        foreach($layoutSections as $s): ?>
+          <section class="@container/section mt-[1em] first:mt-0">
 
-     data-is-hidden="false"
-     data-is-active="true"
+            <?php foreach($s->columns() as $col): ?>
+                    <div class="@container/column">
+                      <?php foreach($col->blocks() as $b) {
+                              $type = $b->type();
+                              $args = ['block'  => $b];
+                              snippet('blocks/' . $type, $args);
+                            } ?>
+                    </div>
+            <?php endforeach; ?>
 
-     class         ="BaseCollapsible group/BaseCollapsible">
-             
-  <?php ////////////
-        // Button //
-        //////////// 
-        
-        snippet('BaseCollapsible/button', $args_button);
-        
-        /////////////
-        // Content //
-        /////////////
-
-        snippet('BaseCollapsible/content', $args_content);
-        ?>
+          </section>
+  <?php endforeach ?>
 
 </div>

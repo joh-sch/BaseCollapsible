@@ -1,9 +1,11 @@
-name: BaseCollapsible
+name:
+  en: Collapsible
+  de: Ausklappbarer Inhalt
 
 ## ——————————————————————————————————————————— CONFIG. ———————————————————————————————————————————— ##
 ## ———————————————————————————————————————————————————————————————————————————————————————————————— ##
 
-icon: grid-full
+icon: expand
 
 ## ———————————————————————————————————————————— LAYOUT ———————————————————————————————————————————— ##
 ## ———————————————————————————————————————————————————————————————————————————————————————————————— ##
@@ -13,18 +15,35 @@ tabs:
   ## —————————————————————————————————————————————————————————————————————————————— ##
 
   content:
+    type: fields
+    label:
+      en: Content
+      de: Inhalt(e)
     fields:
-      is_active: baseKirbyBlueprints/fields/state/is_active
+      buttonText:
+        type: writer
+        label:
+          en: Title/Heading
+          de: Titel/Überschrift
+        required: true
 
-      #####################################
-      line-0: baseKirbyBlueprints/util/line
-      #####################################
+      layout:
+        type: layout
+        label:
+          en: Layout sections
+          de: Layoutabschnitte
+        min: 1
+        fieldsets:
+          - heading
+          - text
+          - image
 
   ## —————————————————————————————————— Settings —————————————————————————————————— ##
   ## —————————————————————————————————————————————————————————————————————————————— ##
 
-  settings:
-    label: Settings
-    fields:
-      version: baseKirbyBlueprints/fields/config/componentVersion
-      logging: baseKirbyBlueprints/fields/config/logging
+  # settings:
+  #   label:
+  #     en: Settings
+  #     de: Einstellungen
+  #   fields:
+  #     ## ...
